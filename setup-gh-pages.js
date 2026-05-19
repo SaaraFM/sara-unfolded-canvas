@@ -1,8 +1,12 @@
 #!/usr/bin/env node
 
 // Script para gerar index.html na pasta dist/client após build
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const clientDir = path.join(__dirname, 'dist', 'client');
 const indexPath = path.join(clientDir, 'index.html');
@@ -12,7 +16,7 @@ const assetsDir = path.join(clientDir, 'assets');
 const files = fs.readdirSync(assetsDir);
 
 const jsFile = files.find(f => f.match(/^index-[\w]+\.js$/));
-const cssFile = files.find(f => f.match(/^styles-[\w]+\.css$/));
+const cssFile = files.find(f => f.match(/^styles-[\w-]+\.css$/));
 
 const html = `<!doctype html>
 <html lang="pt-BR">
